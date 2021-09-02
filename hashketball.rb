@@ -127,3 +127,51 @@ def game_hash
 end
 
 # Write code here
+def num_points_scored(player)
+  search = game_hash[:home][:players].concat(game_hash[:away][:players])
+  person = search.find { |v| v[:player_name] == player }
+  person[:points]
+end
+
+def shoe_size(player)
+  search = game_hash[:home][:players].concat(game_hash[:away][:players])
+  person = search.find { |v| v[:player_name] == player }
+  person[:shoe]
+end
+
+def team_colors(team)
+  case team
+    when game_hash[:home][:team_name] 
+      then game_hash[:home][:colors]
+    when game_hash[:away][:team_name] 
+      then game_hash[:away][:colors]
+  end
+end
+
+def team_names
+  teams = ["#{game_hash[:home][:team_name]}", "#{(game_hash[:away][:team_name])}"]
+  teams
+end
+
+def player_numbers(team)
+  case team 
+  when game_hash[:home][:team_name] 
+    then game_hash[:home][:players].map { |player| player[:number] }
+  when game_hash[:away][:team_name]
+    then game_hash[:away][:players].map { |player| player[:number] }
+  end
+end
+
+def player_stats(player)
+  search = game_hash[:home][:players].concat(game_hash[:away][:players])
+  person = search.find { |v| v[:player_name] == player }
+  person
+end
+
+def big_shoe_rebounds
+  search = game_hash[:home][:players].concat(game_hash[:away][:players])
+  shoe_sizes = search.map { |k, v| k[:shoe] }
+  largest_size = shoe_sizes.max
+  player = search.find { |v| v[:shoe] == largest_size }
+  player[:rebounds]
+end
